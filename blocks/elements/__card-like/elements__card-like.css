@@ -1,0 +1,15 @@
+.elements__card-like {
+    display: block;
+    border: none;
+    width: 22px;
+    height: 19px;
+    background: url("../../../images/like.svg");
+}
+
+.elements__card-like:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.elements__card-like:active {
+    background: url("../../../images/blacklike.png");
+}
