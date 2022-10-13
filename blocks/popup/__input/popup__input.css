@@ -10,10 +10,13 @@
     color: #000000;
 }
 
-/*.popup__input:last-child {*/
-/*    margin: 0;*/
-/*}*/
-
 .popup__input:focus{
     outline: none;
+}
+
+@media screen and (max-width: 1023px){
+    .popup__input {
+        margin: 0 22px 30px 22px;
+        height: 14px;
+    }
 }
