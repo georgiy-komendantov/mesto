@@ -4,7 +4,7 @@ let about = 'Исследователь океана';
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileText = document.querySelector('.profile__text');
 const profileAbout = document.querySelector('.profile__about');
-const popupWrapper = document.querySelector('.popup__wraper');
+const popupWrapper = document.querySelector('.popups__wrapper');
 
 const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputAbout = document.querySelector('.popup__input_type_about');
