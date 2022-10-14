@@ -6,7 +6,6 @@
 @import url("../blocks/profile/profile.css");
 @import url("../blocks/profile/__wrapper/profile__wrapper.css");
 @import url("../blocks/profile/__about/profile__about.css");
-@import url("../blocks/profile/__avatar/profile__avatar.css");
 @import url("../blocks/profile/__avatar-img/profile__avatar-img.css");
 @import url("../blocks/profile/__button/profile__button.css");
 @import url("../blocks/profile/__content/profile__content.css");
@@ -20,12 +19,14 @@
 @import url("../blocks/elements/__card-info/elements__card-info.css");
 @import url("../blocks/elements/__card-img/elements__card-img.css");
 @import url("../blocks/elements/__card-like/elements__card-like.css");
+@import url("../blocks/elements/__card-like/_active/elements__card-like_active.css");
 @import url("../blocks/elements/__card-text/elements__card-text.css");
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/popup/__button-exit/popup__button-exit.css");
 @import url("../blocks/popup/__button-save/popup__button-save.css");
-@import url("../blocks/popup/__eror/popup__eror.css");
 @import url("../blocks/popup/__input/popup__input.css");
 @import url("../blocks/popup/__title/popup__title.css");
 @import url("../blocks/popup/__container/popup__container.css");
+@import url("../blocks/popups/popups.css");
+@import url("../blocks/popups/_disabled/popups_disabled.css");
 @import url("../blocks/popups/__wrapper/popups__wrapper.css");

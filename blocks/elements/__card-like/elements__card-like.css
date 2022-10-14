@@ -11,5 +11,5 @@
     opacity: 0.5;
 }
 .elements__card-like:active {
-    background: url("../../../images/blacklike.png");
+    background: url("../../../images/blacklike.svg");
 }

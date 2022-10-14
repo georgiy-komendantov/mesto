@@ -4,7 +4,7 @@
     white-space: nowrap;
     overflow: hidden;
     width: 100%;
-    margin: 0 18px 16px 0;
+    margin: 0 18px 7px 0;
     font-weight: 500;
     font-size: 42px;
     line-height: 48px;
@@ -19,5 +19,9 @@
         font-weight: 500;
         font-size: 27px;
         line-height: 33px;
+
+        padding-left: 60px;
+        padding-right: 60px;
+        margin-right: -50px;
     }
 }

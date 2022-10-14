@@ -1,4 +1,10 @@
 .page {
-    font-family: Inter;
+    font-family: Inter, Arial, sans-serif;
     background-color:  #000000;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
