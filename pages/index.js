@@ -6,7 +6,7 @@ const popupWrapper = document.querySelector('.popups');
 const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputAbout = document.querySelector('.popup__input_type_about');
 
-const popupButtonExit = document.querySelector('.popup__button-exit');
+const popupButtonExit = document.querySelector('.popups__button-exit');
 const formElement = document.querySelector('.popup');
 
 const formTitle = document.querySelector('.popup__title');
