@@ -1,4 +1,4 @@
-.popup__button-exit {
+.popups__button-exit {
     position: absolute;
     border: none;
     width: 32px;
@@ -10,13 +10,13 @@
     cursor: pointer;
 }
 
-.popup__button-exit:hover {
+.popups__button-exit:hover {
     cursor: pointer;
     opacity: 0.6;
 }
 
 @media screen and (max-width: 1023px){
-    .popup__button-exit {
+    .popups__button-exit {
         width: 20px;
         height: 20px;
         top: -35px;
