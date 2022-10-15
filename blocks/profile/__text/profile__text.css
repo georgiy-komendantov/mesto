@@ -3,7 +3,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width: 100%;
     margin: 0 18px 7px 0;
     font-weight: 500;
     font-size: 42px;
@@ -13,15 +12,10 @@
 
 @media screen and (max-width: 1023px){
     .profile__text {
-        margin: 22px 10px 14px auto;
+        margin: 22px 0 14px 0;
         font-style: normal;
-        width: 100%;
         font-weight: 500;
         font-size: 27px;
         line-height: 33px;
-
-        padding-left: 60px;
-        padding-right: 60px;
-        margin-right: -50px;
     }
 }

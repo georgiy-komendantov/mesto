@@ -9,13 +9,9 @@ const popupInputAbout = document.querySelector('.popup__input_type_about');
 const popupButtonExit = document.querySelector('.popups__button-exit');
 const formElement = document.querySelector('.popup');
 
-const formTitle = document.querySelector('.popup__title');
-
 function exitForm(e){
-    if(e) {
-        e.preventDefault();
-    }
-    popupWrapper.classList.add('popups_disabled');
+    e.preventDefault();
+    popupWrapper.classList.remove('popups_enabled');
 }
 
 function saveForm(e){
@@ -23,18 +19,16 @@ function saveForm(e){
     profileText.textContent = popupInputName.value;
     profileAbout.textContent = popupInputAbout.value;
     formTitle.textContent = '';
-    exitForm();
+    exitForm(e);
 }
 
-function onProfileClick(e) {
+function openPopup(e) {
     e.preventDefault();
-
-    popupWrapper.classList.remove('popups_disabled');
+    popupWrapper.classList.add('popups_enabled');
     popupInputName.value = profileText.textContent;
     popupInputAbout.value = profileAbout.textContent;
-    formTitle.textContent = 'Редактировать профиль';
 }
 
-profileEditButton.addEventListener('click', onProfileClick);
+profileEditButton.addEventListener('click', openPopup);
 popupButtonExit.addEventListener('click', exitForm);
 formElement.addEventListener('submit', saveForm);
