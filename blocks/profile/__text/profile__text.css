@@ -12,7 +12,8 @@
 
 @media screen and (max-width: 1023px){
     .profile__text {
-        margin: 22px 0 14px 0;
+        max-width: 240px;
+        margin: 26px 0 3px 0;
         font-style: normal;
         font-weight: 500;
         font-size: 27px;

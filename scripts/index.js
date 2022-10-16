@@ -18,7 +18,6 @@ function saveForm(e){
     e.preventDefault();
     profileText.textContent = popupInputName.value;
     profileAbout.textContent = popupInputAbout.value;
-    formTitle.textContent = '';
     exitForm(e);
 }
 
