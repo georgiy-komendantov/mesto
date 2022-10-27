@@ -3,3 +3,7 @@
     width: 282px;
     height: 282px;
 }
+
+.elements__card-img:hover {
+    cursor: pointer;
+}

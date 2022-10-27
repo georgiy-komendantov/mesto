@@ -29,61 +29,7 @@
         <button type="button" class="profile__button"></button>
     </section>
 
-    <section class="elements">
-        <div class="elements__card">
-            <img class="elements__card-img" src="./images/1.png" alt="замок">
-            <div class="elements__card-info">
-                <h2 class="elements__card-text">Карачаевск</h2>
-                <button type="button" class="elements__card-like elements__card-like_active"></button>
-            </div>
-        </div>
-
-        <div class="elements__card">
-            <img class="elements__card-img" src="./images/2.png" alt="пустыня">
-
-            <div class="elements__card-info">
-                <h2 class="elements__card-text">Гора Эльбрус</h2>
-                <button type="button" class="elements__card-like"></button>
-            </div>
-        </div>
-
-        <div class="elements__card">
-            <img class="elements__card-img" src="./images/3.png" alt="горы">
-
-            <div class="elements__card-info">
-                <h2 class="elements__card-text">Домбай</h2>
-                <button type="button" class="elements__card-like"></button>
-            </div>
-        </div>
-
-        <div class="elements__card">
-            <img class="elements__card-img" src="./images/2.png" alt="пустыня">
-
-
-            <div class="elements__card-info">
-                <h2 class="elements__card-text">Гора Эльбрус</h2>
-                <button type="button" class="elements__card-like"></button>
-            </div>
-        </div>
-
-        <div class="elements__card">
-            <img class="elements__card-img" src="./images/3.png" alt="горы">
-
-            <div class="elements__card-info">
-                <h2 class="elements__card-text">Домбай</h2>
-                <button type="button" class="elements__card-like"></button>
-            </div>
-        </div>
-
-        <div class="elements__card">
-            <img class="elements__card-img" src="./images/1.png" alt="замок">
-
-            <div class="elements__card-info">
-                <h2 class="elements__card-text">Карачаево-Черкессия</h2>
-                <button type="button" class="elements__card-like"></button>
-            </div>
-        </div>
-    </section>
+    <section class="elements"></section>
 
 </main>
 
@@ -100,7 +46,26 @@
             <button type="submit" class="popup__button-save">Сохранить</button>
         </form>
         <button type="button" class="popups__button-exit"></button>
+    </div>
+</section>
 
+<section class="addpopups">
+    <div class="addpopups__wrapper">
+        <h2 class="addpopups__title">Новое место</h2>
+        <form name="form" class="addpopups__form">
+            <input name="name" placeholder="Название" class="addpopups__input addpopups__input_type_name">
+            <input name="link" placeholder="Ссылка на картинку" class="addpopups__input addpopups__input_type_link">
+            <button type="submit" class="addpopups__button-save">Создать</button>
+        </form>
+        <button type="button" class="addpopups__button-exit"></button>
+    </div>
+</section>
+
+<section class="popup-photo">
+    <div class="popup-photo__content">
+        <button type="button" class="popup-photo__button-exit"></button>
+        <img class="popup-photo__img" src="" alt="фото-карточка">
+        <p class="popup-photo__text"></p>
     </div>
 </section>
 
