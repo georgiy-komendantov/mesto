@@ -88,7 +88,7 @@ function exitPopup(e){
         saveForm();
     }
 
-    if(e.target.classList.contains('popupsection_button-exit')){
+    if(e.target.classList.contains('popupsection__button-exit')){
         e.target.parentNode.parentNode.classList.add('popupsection_status_disabled');
         e.target.parentNode.parentNode.classList.remove('popupsection_status_enabled');
     } else if(e.target.classList.contains('addpopups__button-save') || e.target.classList.contains('popup__button-save')) {
