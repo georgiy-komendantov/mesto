@@ -43,12 +43,5 @@
 @import url("../blocks/popup-photo/__text/popup-photo__text.css");
 @import url("../blocks/popup-photo/__content/popup-photo__content.css");
 
-@import url("../blocks/popups/_status/popups_status_enabled.css");
-@import url("../blocks/popups/_status/popups_status_disabled.css");
-
-
-@import url("../blocks/popup-photo/_status/popup-photo_status_enabled.css");
-@import url("../blocks/popup-photo/_status/popup-photo_status_disabled.css");
-
-@import url("../blocks/addpopups/_status/addpopups_status_enabled.css");
-@import url("../blocks/addpopups/_status/addpopups_status_disabled.css");
+@import url("../blocks/popupsection/_status/popupsection_status_enabled.css");
+@import url("../blocks/popupsection/_status/popupsection_status_disabled.css");
