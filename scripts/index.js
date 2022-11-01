@@ -8,7 +8,7 @@ const popupsAddWrapper = document.querySelector('.addpopups');
 const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputAbout = document.querySelector('.popup__input_type_about');
 
-const popupButtonExit = document.querySelector('.allpopups');
+const allPopups = document.querySelector('.allpopups');
 
 const popupPhotoImg = document.querySelector('.popup-photo__img');
 const popupPhotoText = document.querySelector('.popup-photo__text');
@@ -19,32 +19,41 @@ const popupAddInputLink = document.querySelector('.addpopups__input_type_link');
 const elements = document.querySelector('.elements');
 const popupPhoto = document.querySelector('.popup-photo');
 
-function createCard(link, name){
-    return `<div class="elements__card">
-        <img class="elements__card-delete" src="./images/Trash.svg" alt="удалить">
-        <img class="elements__card-img" src="${link}" alt="${name}">
-        <div class="elements__card-info">
-            <h2 class="elements__card-text">${name}</h2>
-            <button type="button" class="elements__card-like "></button>
-        </div>
-    </div>`;
-}
+// Я установил слушатель для элемента elements, который является родителем для всех карточек мест.
+// При добавлении новой карточки места не нужно повторно задавать addEventListener, т.к. она будет отслеживаться через родителя.
+
+elements.addEventListener('click',  openPhotoCard);
 
 initialCards.forEach((item) => {
-    const card = createCard(item.link, item.name);
-    elements.insertAdjacentHTML('beforeend', card);
+    createCard('beforeend', item.link, item.name);
 })
 
-function addElement(){
-    const card = createCard(popupAddInputLink.value, popupAddInputName.value);
-    elements.insertAdjacentHTML('afterbegin', card);
-    popupAddInputLink.value = '';
-    popupAddInputName.value = '';
+function createCard(position, link, name){
+    elements.insertAdjacentHTML(position,
+        `<div class="elements__card">
+            <img class="elements__card-delete" src="./images/Trash.svg" alt="удалить">
+            <img class="elements__card-img" src="${link}" alt="${name}">
+            <div class="elements__card-info">
+                <h2 class="elements__card-text">${name}</h2>
+                <button type="button" class="elements__card-like"></button>
+            </div>
+        </div>`
+    );
 }
 
-function saveForm(){
-    profileText.textContent = popupInputName.value;
-    profileAbout.textContent = popupInputAbout.value;
+function addElement(e){
+    if(e.target.classList.contains('addpopups__button-save')) {
+        createCard('afterbegin', popupAddInputLink.value, popupAddInputName.value);
+        popupAddInputLink.value = '';
+        popupAddInputName.value = '';
+    }
+}
+
+function saveForm(e){
+    if(e.target.classList.contains('popup__button-save')) {
+        profileText.textContent = popupInputName.value;
+        profileAbout.textContent = popupInputAbout.value;
+    }
 }
 
 function likeButton(e) {
@@ -57,50 +66,58 @@ function likeButton(e) {
 function deleteCard (e) {
     e.preventDefault();
     if(e.target.classList.contains('elements__card-delete')) {
-        e.target.parentNode.remove();
+        e.target.closest('.elements__card').remove();
     }
 }
 
-function openPopup(e){
-    e.preventDefault();
-    if(e.target.classList.contains('elements__card-img')) {
-        popupPhoto.classList.remove('popupsection_status_disabled');
-        popupPhoto.classList.add('popupsection_status_enabled');
-        popupPhotoImg.setAttribute('src', e.target.getAttribute('src'));
-        popupPhotoImg.setAttribute('alt', e.target.getAttribute('alt'));
-        popupPhotoText.textContent = e.target.parentNode.querySelector('.elements__card-text').textContent;
-    } else if(e.target.classList.contains('profile__button')){
-        popupsAddWrapper.classList.remove('popupsection_status_disabled');
-        popupsAddWrapper.classList.add('popupsection_status_enabled');
-    } else if(e.target.classList.contains('profile__edit-button')){
-        popupWrapper.classList.remove('popupsection_status_disabled');
-        popupWrapper.classList.add('popupsection_status_enabled');
-        popupInputName.value = profileText.textContent;
-        popupInputAbout.value = profileAbout.textContent;
-    }
+function openPopup(popup){
+    popup.classList.remove('popupsection_status_disabled');
+    popup.classList.add('popupsection_status_enabled');
 }
 
 function exitPopup(e){
-    e?.preventDefault();
-    if(e.target.classList.contains('addpopups__button-save')){
-        addElement();
-    } else if(e.target.classList.contains('popup__button-save')){
-        saveForm();
-    }
-
     if(e.target.classList.contains('popupsection__button-exit')){
-        e.target.parentNode.parentNode.classList.add('popupsection_status_disabled');
-        e.target.parentNode.parentNode.classList.remove('popupsection_status_enabled');
-    } else if(e.target.classList.contains('addpopups__button-save') || e.target.classList.contains('popup__button-save')) {
-        e.target.parentNode.parentNode.parentNode.classList.add('popupsection_status_disabled');
-        e.target.parentNode.parentNode.parentNode.classList.remove('popupsection_status_enabled');
+        e.target.closest('.popupsection').classList.add('popupsection_status_disabled');
+        e.target.closest('.popupsection').classList.remove('popupsection_status_enabled');
+    }
+}
+
+function setPhotoData(e){
+    popupPhotoImg.setAttribute('src', e.target.getAttribute('src'));
+    popupPhotoImg.setAttribute('alt', e.target.getAttribute('alt'));
+    popupPhotoText.textContent = e.target.parentNode.querySelector('.elements__card-text').textContent;
+}
+
+function setUserData(){
+    popupInputName.value = profileText.textContent;
+    popupInputAbout.value = profileAbout.textContent;
+    openPopup(popupWrapper);
+}
+
+function openAddCard(e){
+    e.preventDefault();
+    openPopup(popupsAddWrapper);
+}
+
+function submitForm(e){
+    e.preventDefault();
+    addElement(e);
+    saveForm(e);
+    exitPopup(e);
+}
+
+function openPhotoCard(e){
+    e.preventDefault();
+    if(e.target.classList.contains('elements__card-img')) {
+        openPopup(popupPhoto);
+        setPhotoData(e);
     }
 }
 
 elements.addEventListener('click', likeButton);
 elements.addEventListener('click', deleteCard);
-elements.addEventListener('click', openPopup);
-profileEditButton.addEventListener('click', openPopup);
-profileButton.addEventListener('click', openPopup);
-popupButtonExit.addEventListener('click', exitPopup);
+profileEditButton.addEventListener('click', setUserData);
+profileButton.addEventListener('click', openAddCard);
+allPopups.addEventListener('click', submitForm)
+
 

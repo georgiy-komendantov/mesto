@@ -11,6 +11,11 @@
     top: -40px;
 }
 
+.popup-photo__button-exit:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
 @media screen and (max-width: 1023px){
     .popup-photo__button-exit {
         width: 20px;
