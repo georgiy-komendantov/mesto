@@ -1,9 +1,12 @@
 const profileEditButton = document.querySelector('.profile__edit-button');
-const profileButton = document.querySelector('.profile__button');
+const profileChangeButton = document.querySelector('.profile__button');
 const profileText = document.querySelector('.profile__text');
 const profileAbout = document.querySelector('.profile__about');
-const popupWrapper = document.querySelector('.popups');
-const popupsAddWrapper = document.querySelector('.addpopups');
+const popupProfileEditWrapper = document.querySelector('.popups');
+const popupCardAddWrapper = document.querySelector('.addpopups');
+
+const popupFormEditProfile = document.querySelector('.popup');
+const popupFormAddCards = document.querySelector('.addpopups__form');
 
 const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputAbout = document.querySelector('.popup__input_type_about');
@@ -22,13 +25,13 @@ const popupPhoto = document.querySelector('.popup-photo');
 // Я установил слушатель для элемента elements, который является родителем для всех карточек мест.
 // При добавлении новой карточки места не нужно повторно задавать addEventListener, т.к. она будет отслеживаться через родителя.
 
-elements.addEventListener('click',  openPhotoCard);
+elements.addEventListener('click', openPhotoCard);
 
 initialCards.forEach((item) => {
     createCard('beforeend', item.link, item.name);
 })
 
-function createCard(position, link, name){
+function createCard(position, link, name) {
     elements.insertAdjacentHTML(position,
         `<div class="elements__card">
             <img class="elements__card-delete" src="./images/Trash.svg" alt="удалить">
@@ -41,74 +44,71 @@ function createCard(position, link, name){
     );
 }
 
-function addElement(e){
-    if(e.target.classList.contains('addpopups__button-save')) {
+function addElement(e) {
+    e.preventDefault();
+    if (e.target.classList.contains('addpopups__button-save')) {
         createCard('afterbegin', popupAddInputLink.value, popupAddInputName.value);
         popupAddInputLink.value = '';
         popupAddInputName.value = '';
+        exitPopup(e);
     }
 }
 
-function saveForm(e){
-    if(e.target.classList.contains('popup__button-save')) {
+function saveForm(e) {
+    e.preventDefault();
+    if (e.target.classList.contains('popup__button-save')) {
         profileText.textContent = popupInputName.value;
         profileAbout.textContent = popupInputAbout.value;
+        exitPopup(e);
     }
 }
 
 function likeButton(e) {
     e.preventDefault();
-    if(e.target.classList.contains('elements__card-like')){
+    if (e.target.classList.contains('elements__card-like')) {
         e.target.classList.toggle('elements__card-like_active');
     }
 }
 
-function deleteCard (e) {
+function deleteCard(e) {
     e.preventDefault();
-    if(e.target.classList.contains('elements__card-delete')) {
+    if (e.target.classList.contains('elements__card-delete')) {
         e.target.closest('.elements__card').remove();
     }
 }
 
-function openPopup(popup){
+function openPopup(popup) {
     popup.classList.remove('popupsection_status_disabled');
     popup.classList.add('popupsection_status_enabled');
 }
 
-function exitPopup(e){
-    if(e.target.classList.contains('popupsection__button-exit')){
+function exitPopup(e) {
+    if (e.target.classList.contains('popupsection__button-exit')) {
         e.target.closest('.popupsection').classList.add('popupsection_status_disabled');
         e.target.closest('.popupsection').classList.remove('popupsection_status_enabled');
     }
 }
 
-function setPhotoData(e){
+function setPhotoData(e) {
     popupPhotoImg.setAttribute('src', e.target.getAttribute('src'));
     popupPhotoImg.setAttribute('alt', e.target.getAttribute('alt'));
     popupPhotoText.textContent = e.target.parentNode.querySelector('.elements__card-text').textContent;
 }
 
-function setUserData(){
+function setUserData() {
     popupInputName.value = profileText.textContent;
     popupInputAbout.value = profileAbout.textContent;
-    openPopup(popupWrapper);
+    openPopup(popupProfileEditWrapper);
 }
 
-function openAddCard(e){
+function openAddCard(e) {
     e.preventDefault();
-    openPopup(popupsAddWrapper);
+    openPopup(popupCardAddWrapper);
 }
 
-function submitForm(e){
+function openPhotoCard(e) {
     e.preventDefault();
-    addElement(e);
-    saveForm(e);
-    exitPopup(e);
-}
-
-function openPhotoCard(e){
-    e.preventDefault();
-    if(e.target.classList.contains('elements__card-img')) {
+    if (e.target.classList.contains('elements__card-img')) {
         openPopup(popupPhoto);
         setPhotoData(e);
     }
@@ -117,7 +117,11 @@ function openPhotoCard(e){
 elements.addEventListener('click', likeButton);
 elements.addEventListener('click', deleteCard);
 profileEditButton.addEventListener('click', setUserData);
-profileButton.addEventListener('click', openAddCard);
-allPopups.addEventListener('click', submitForm)
+profileChangeButton.addEventListener('click', openAddCard);
 
+popupFormEditProfile.addEventListener('click', saveForm);
+popupFormAddCards.addEventListener('click', addElement);
 
+// Я не могу добавить один addEventListener к ряду элементов с одним классом, а добавлять каждому элементу addEventListener — выглядит странно,
+// Я создал общий класс для всех элементов, и, делаю проверку, так что таргет события должен содержать класс popupsection__button-exit
+allPopups.addEventListener('click', exitPopup);
