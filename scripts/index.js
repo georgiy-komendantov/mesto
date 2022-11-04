@@ -46,21 +46,17 @@ function createCard(position, link, name) {
 
 function addElement(e) {
     e.preventDefault();
-    if (e.target.classList.contains('addpopups__button-save')) {
-        createCard('afterbegin', popupAddInputLink.value, popupAddInputName.value);
-        popupAddInputLink.value = '';
-        popupAddInputName.value = '';
-        exitPopup(e);
-    }
+    createCard('afterbegin', popupAddInputLink.value, popupAddInputName.value);
+    popupAddInputLink.value = '';
+    popupAddInputName.value = '';
+    exitPopup(e, true);
 }
 
 function saveForm(e) {
     e.preventDefault();
-    if (e.target.classList.contains('popup__button-save')) {
-        profileText.textContent = popupInputName.value;
-        profileAbout.textContent = popupInputAbout.value;
-        exitPopup(e);
-    }
+    profileText.textContent = popupInputName.value;
+    profileAbout.textContent = popupInputAbout.value;
+    exitPopup(e, true);
 }
 
 function likeButton(e) {
@@ -82,8 +78,8 @@ function openPopup(popup) {
     popup.classList.add('popupsection_status_enabled');
 }
 
-function exitPopup(e) {
-    if (e.target.classList.contains('popupsection__button-exit')) {
+function exitPopup(e, isFormSubmit) {
+    if (e.target.classList.contains('popupsection__button-exit') || isFormSubmit ) {
         e.target.closest('.popupsection').classList.add('popupsection_status_disabled');
         e.target.closest('.popupsection').classList.remove('popupsection_status_enabled');
     }
@@ -119,8 +115,8 @@ elements.addEventListener('click', deleteCard);
 profileEditButton.addEventListener('click', setUserData);
 profileChangeButton.addEventListener('click', openAddCard);
 
-popupFormEditProfile.addEventListener('click', saveForm);
-popupFormAddCards.addEventListener('click', addElement);
+popupFormEditProfile.addEventListener('submit', saveForm);
+popupFormAddCards.addEventListener('submit', addElement);
 
 // Я не могу добавить один addEventListener к ряду элементов с одним классом, а добавлять каждому элементу addEventListener — выглядит странно,
 // Я создал общий класс для всех элементов, и, делаю проверку, так что таргет события должен содержать класс popupsection__button-exit
