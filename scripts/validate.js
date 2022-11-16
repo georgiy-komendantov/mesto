@@ -59,14 +59,14 @@ const enableValidation = ({inputSelector, submitButtonSelector, inputErrorClass}
 enableValidation({
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button-save',
-    inputErrorClass: 'popup__input_type_error',
+    inputErrorClass: 'popup__input-error',
 });
 
 
 enableValidation({
     inputSelector: '.addpopups__input',
     submitButtonSelector: '.addpopups__button-save',
-    inputErrorClass: 'popup__input_type_error',
+    inputErrorClass: 'addpopups__input-error',
 });
 
 
