@@ -43,13 +43,13 @@
         <div class="popups__wrapper">
             <h2 class="popups__title">Редактировать профиль</h2>
             <form name="form" class="popup">
-                <div class="popup__input_name">
+                <div class="popup__input-name">
                     <input id="popups__name"  name="name" placeholder="Имя" class="popup__input popup__input_type_name" type="text" pattern="^[a-zA-Zа-яА-я-\s]+$" minlength="2" maxlength="40" required>
-                    <label for="popups__name" class="popup__input_error-text"></label>
+                    <label for="popups__name" class="popup__input-error-text"></label>
                 </div>
-                <div class="popup__input_about">
+                <div class="popup__input-about">
                     <input id="popups__about" name="about" placeholder="О вас" class="popup__input popup__input_type_about" minlength="2" maxlength="200" required>
-                    <label for="popups__about" class="popup__input_error-text"></label>
+                    <label for="popups__about" class="popup__input-error-text"></label>
                 </div>
                 <button type="submit" class="popup__button-save" >Сохранить</button>
             </form>
@@ -62,13 +62,13 @@
         <div class="addpopups__wrapper">
             <h2 class="addpopups__title">Новое место</h2>
             <form name="form" class="addpopups__form">
-                <div class="addpopups__input_topic">
+                <div class="addpopups__input-topic">
                     <input id="addpopups__topic" name="topic" placeholder="Название" class="addpopups__input addpopups__input_type_topic" minlength="2" maxlength="30" required>
-                    <label for="addpopups__topic" class="popup__input_error-text"> </label>
+                    <label for="addpopups__topic" class="popup__input-error-text"> </label>
                 </div>
-                <div class="addpopups__input_link">
+                <div class="addpopups__input-link">
                     <input id="addpopups__link" name="link" placeholder="Ссылка на картинку" class="addpopups__input addpopups__input_type_link" type="url" required>
-                    <label for="addpopups__link" class="popup__input_error-text"> </label>
+                    <label for="addpopups__link" class="popup__input-error-text"> </label>
                 </div>
                 <button type="submit" class="addpopups__button-save" >Создать</button>
             </form>
