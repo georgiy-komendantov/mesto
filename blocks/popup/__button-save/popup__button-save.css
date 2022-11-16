@@ -19,6 +19,13 @@
 
 }
 
+.popup__button-save:disabled {
+    opacity: 0.2;
+    border: 1px solid #000000;
+    background: none;
+    color: #000000;
+}
+
 @media screen and (max-width: 1023px){
     .popup__button-save {
         padding: 15px 0 14px 0;

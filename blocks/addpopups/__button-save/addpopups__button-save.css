@@ -16,7 +16,13 @@
 
 .addpopups__button-save:hover {
     opacity: 0.8;
+}
 
+.addpopups__button-save:disabled {
+    opacity: 0.2;
+    border: 1px solid #000000;
+    background: none;
+    color: #000000;
 }
 
 @media screen and (max-width: 1023px){

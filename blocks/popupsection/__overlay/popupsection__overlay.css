@@ -1,0 +1,11 @@
+.popupsection__overlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.popupsection__overlay:hover {
+    cursor: pointer;
+}

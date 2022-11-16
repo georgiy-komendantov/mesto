@@ -16,7 +16,7 @@ const allPopups = document.querySelector('.allpopups');
 const popupPhotoImg = document.querySelector('.popup-photo__img');
 const popupPhotoText = document.querySelector('.popup-photo__text');
 
-const popupAddInputName = document.querySelector('.addpopups__input_type_name');
+const popupAddInputName = document.querySelector('.addpopups__input_type_topic');
 const popupAddInputLink = document.querySelector('.addpopups__input_type_link');
 
 const elements = document.querySelector('.elements');
@@ -80,8 +80,20 @@ function openPopup(popup) {
 
 function exitPopup(e, isFormSubmit) {
     if (e.target.classList.contains('popupsection__button-exit') || isFormSubmit ) {
-        e.target.closest('.popupsection').classList.add('popupsection_status_disabled');
         e.target.closest('.popupsection').classList.remove('popupsection_status_enabled');
+    }
+}
+
+function exitPopupOverlay(e, isFormSubmit) {
+    if (e.target.classList.contains('popupsection__overlay') || isFormSubmit ) {
+        e.target.closest('.popupsection').classList.remove('popupsection__overlay');
+    }
+}
+
+function exitPopupEscape (e, isFormSubmit) {
+    const statusEnabled = document.querySelector('.popupsection_status_enabled');
+    if ((e.key === 'Escape' || isFormSubmit ) && statusEnabled)  {
+        statusEnabled.classList.remove('popupsection_status_enabled');
     }
 }
 
@@ -99,6 +111,8 @@ function setUserData() {
 
 function openAddCard(e) {
     e.preventDefault();
+
+    setButtonActive('.addpopups__button-save');
     openPopup(popupCardAddWrapper);
 }
 
@@ -121,3 +135,5 @@ popupFormAddCards.addEventListener('submit', addElement);
 // Я не могу добавить один addEventListener к ряду элементов с одним классом, а добавлять каждому элементу addEventListener — выглядит странно,
 // Я создал общий класс для всех элементов, и, делаю проверку, так что таргет события должен содержать класс popupsection__button-exit
 allPopups.addEventListener('click', exitPopup);
+allPopups.addEventListener('click', exitPopupOverlay);
+window.addEventListener('keydown', exitPopupEscape);
