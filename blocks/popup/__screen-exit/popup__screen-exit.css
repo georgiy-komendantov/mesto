@@ -1,4 +1,4 @@
-.popupsection__overlay {
+.popup__screen-exit {
     position: absolute;
     width: 100vw;
     height: 100vh;
@@ -6,6 +6,6 @@
     left: 0;
 }
 
-.popupsection__overlay:hover {
+.popup__screen-exit:hover {
     cursor: pointer;
 }
