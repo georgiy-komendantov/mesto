@@ -29,7 +29,18 @@
         <button type="button" class="profile__button"></button>
     </section>
 
-    <section class="elements"></section>
+    <section class="elements">
+        <template id="elements__container-add">
+            <div class="elements__card">
+                <img class="elements__card-delete" src="./images/Trash.svg" alt="удалить">
+                <img class="elements__card-img">
+                <div class="elements__card-info">
+                    <h2 class="elements__card-text"></h2>
+                    <button type="button" class="elements__card-like"></button>
+                </div>
+            </div>
+        </template>
+    </section>
 
 </main>
 
@@ -42,11 +53,11 @@
     <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form name="form" class="popup__form">
-            <div class="popup__input-name">
+            <div class="popup__input-container">
                 <input name="name" placeholder="Имя" class="popup__input popup__input_type_name" type="text" minlength="2" maxlength="40" required>
                 <span class="popup__input-error-text"></span>
             </div>
-            <div class="popup__input-about">
+            <div class="popup__input-container">
                 <input name="about" placeholder="О вас" class="popup__input popup__input_type_about" minlength="2" maxlength="200" required>
                 <span class="popup__input-error-text"></span>
             </div>
@@ -60,11 +71,11 @@
     <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <form name="form" class="popup__form">
-            <div class="popup__input-topic">
+            <div class="popup__input-container">
                 <input name="topic" placeholder="Название" class="popup__input popup__input_type_topic" minlength="2" maxlength="30" required>
                 <span  class="popup__input-error-text"></span>
             </div>
-            <div class="popup__input-link">
+            <div class="popup__input-container">
                 <input name="link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" type="url" required>
                 <span class="popup__input-error-text"></span>
             </div>

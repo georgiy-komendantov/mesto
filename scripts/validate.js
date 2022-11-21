@@ -6,65 +6,73 @@ const setButtonDisable = (buttonActive) => {
     buttonActive.removeAttribute('disabled');
 }
 
-const isValid = (e, settings) => {
-    if (!e.target.validity.valid) {
-        // Если поле не проходит валидацию, покажем ошибку
+const hasInvalidInput = (inputList) => {
+    return inputList.some((inputElement) => {
+        return !inputElement.validity.valid;
+    });
+};
 
-        const buttonActive = e.target.closest(settings.formSelector).querySelector(settings.submitButtonSelector);
-        setButtonActive(buttonActive);
+const showInputError = (settings, formElement, inputElement, errorMessage) => {
+    const errorElement = inputElement.closest(settings.inputContainer).querySelector(settings.errorClass);
+    inputElement.classList.add(settings.inputErrorClass);
+    errorElement.textContent = errorMessage;
+};
 
-        e.target.classList.add(settings.inputErrorClass);
+const hideInputError = (settings, formElement, inputElement) => {
+    const errorElement = inputElement.closest(settings.inputContainer).querySelector(settings.errorClass);
+    inputElement.classList.remove(settings.inputErrorClass);
+    errorElement.textContent = '';
+};
 
-        // Кастомные тексты ошибок есть в описании и видеозаписям к заданиям. !!!
-        if(e.target.value === ''){
-            e.target.parentNode.querySelector('.popup__input-error-text').textContent = 'Вы пропустили это поле.';
-        } else if (e.target.validity.tooShort) {
-            e.target.parentNode.querySelector('.popup__input-error-text').textContent = 'Минимальное кол-во символов: 2. Длина текста\nсейчас: ' + e.target.value.length + ' символ.';
-        } else if (e.target.validity.tooLong && e.target.type !== 'url') {
-            e.target.parentNode.querySelector('.popup__input-error-text').textContent = 'Максимальное кол-во символов: 30. Длина текста\nсейчас: ' + e.target.value.length + ' символ.';
-        } else if (e.target.type === 'url') {
-            e.target.parentNode.querySelector('.popup__input-error-text').textContent = 'Введите адрес сайта.';
-        }
+const toggleButtonState = (inputList, buttonElement) => {
+    if (hasInvalidInput(inputList)) {
+        setButtonActive(buttonElement);
     } else {
-        // Кнопка должна оставаться выключенной, пока все input формы не проходят валидацию
-        let formEnabled = true;
-
-        e.target.closest(settings.formSelector).querySelectorAll(settings.inputSelector)
-            .forEach((formInput) => {
-            if(!formInput.validity.valid){
-                formEnabled = false
-            }
-        });
-
-        if(formEnabled) {
-            const buttonActive = e.target.closest(settings.formSelector).querySelector(settings.submitButtonSelector);
-            setButtonDisable(buttonActive);
-        }
-
-        e.target.classList.remove(settings.inputErrorClass);
-
-        e.target.parentNode.querySelector('.popup__input-error-text').textContent = '';
+        setButtonDisable(buttonElement);
     }
 };
 
-const setEventListeners = (formInputs, settings) => {
-    formInputs.forEach((formInput) => {
-        formInput.addEventListener('input', (e) => {
-            isValid(e, settings)
+const checkInputValidity = (settings, formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+        showInputError(settings, formElement, inputElement, inputElement.validationMessage);
+    } else {
+        hideInputError(settings, formElement, inputElement);
+    }
+};
+
+const setEventListeners = (formElement, settings) => {
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
+
+    toggleButtonState(inputList, buttonElement);
+
+
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', function () {
+            checkInputValidity(settings, formElement, inputElement);
+            toggleButtonState(inputList, buttonElement);
         });
     });
 };
 
 const enableValidation = (settings) => {
-    const formInputs = document.querySelectorAll(settings.inputSelector);
-    setEventListeners(formInputs, settings);
+    const formList = Array.from(document.querySelectorAll(settings.formSelector));
+    formList.forEach((formElement) => {
+        formElement.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+        });
+
+        setEventListeners(formElement, settings);
+    });
 };
 
 const settings = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
+    inputContainer: '.popup__input-container',
     submitButtonSelector: '.popup__button-save',
+    inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input-error',
+    errorClass: '.popup__input-error-text',
 };
-
 enableValidation(settings);
