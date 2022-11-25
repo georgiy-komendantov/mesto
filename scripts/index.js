@@ -30,12 +30,12 @@ function addCard(link, name){
 }
 
 function createCardTemplate(link, name) {
-    let addCard = elementsContainerAdd.cloneNode(true)?.content;
+    const addCard = elementsContainerAdd.cloneNode(true)?.content;
     addCard.querySelector('.elements__card-img').setAttribute('src', link);
     addCard.querySelector('.elements__card-img').setAttribute('alt', name);
     addCard.querySelector('.elements__card-text').textContent = name;
 
-    let card = addCard.querySelector('.elements__card');
+    const card = addCard.querySelector('.elements__card');
     card.querySelector('.elements__card-delete').addEventListener('click', deleteCard);
     card.querySelector('.elements__card-like').addEventListener('click', likeButton);
     card.querySelector('.elements__card-img').addEventListener('click', openPhotoCard);
@@ -95,7 +95,7 @@ function exitPopup(e) {
 function closePopupByEsc (e) {
     if (e.key === 'Escape')  {
         const statusEnabled = document.querySelector('.popup_opened');
-        statusEnabled?.classList.remove('popup_opened');
+        closePopup(statusEnabled);
     }
 }
 
