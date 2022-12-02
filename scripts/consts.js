@@ -1,3 +1,12 @@
+const selectors = {
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button-save',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input-error',
+    errorClass: '.popup__input-error-text',
+    inputContainer: '.popup__input-container'
+}
+
 const initialCards = [
     {
         name: 'Архыз',
