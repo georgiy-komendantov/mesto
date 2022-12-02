@@ -45,7 +45,7 @@ function setUserData() {
 
 function openAddCard(e) {
     e.preventDefault();
-    t buttonActive = popupCardAddWrapper.querySelector(selectors.submitButtonSelector);
+    const buttonActive = popupCardAddWrapper.querySelector(selectors.submitButtonSelector);
     cardAddFormValidator._setButtonActive(buttonActive);
     openPopup(popupCardAddWrapper);
 }
