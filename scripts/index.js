@@ -24,7 +24,8 @@ initialCards.forEach((item) => {
 
 function addCard(item){
     const newCard = new Card(item, '#elements__container-add')
-    newCard.renderCard(elementsContainer)
+    const view = newCard.renderCard()
+    elementsContainer.prepend(view)
 }
 
 const profileEditFormValidator = new FormValidator(selectors, profileOpen)
@@ -45,14 +46,12 @@ function setUserData() {
 
 function openAddCard(e) {
     e.preventDefault();
-    const buttonActive = popupCardAddWrapper.querySelector(selectors.submitButtonSelector);
-    cardAddFormValidator._setButtonActive(buttonActive);
+    cardAddFormValidator._setButtonActive();
     openPopup(popupCardAddWrapper);
 }
 
 profileEditButton.addEventListener('click', openProfile);
 profileChangeButton.addEventListener('click', openAddCard);
-
 
 function saveForm(e) {
     e.preventDefault();
@@ -64,9 +63,9 @@ function saveForm(e) {
 function addElement(e) {
     e.preventDefault();
     addCard({name: popupAddInputName.value, link: popupAddInputLink.value});
+    closePopup(e.target.closest('.popup'));
     popupAddInputLink.value = '';
     popupAddInputName.value = '';
-    closePopup(e.target.closest('.popup'));
 }
 
 popupProfileEditWrapper.querySelector('.popup__form').addEventListener('submit', saveForm);

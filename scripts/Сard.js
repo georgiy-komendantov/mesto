@@ -11,15 +11,17 @@ export class Card {
             .content
             .querySelector('.elements__card')
             .cloneNode(true)
+        this._viewImg = this._view.querySelector('.elements__card-img')
+        this._viewText = this._view.querySelector('.elements__card-text')
     }
 
-    renderCard(container) {
+    renderCard() {
         this._getCardTemplate()
         this._setEventListeners()
-        this._view.querySelector('.elements__card-img').src = this._link
-        this._view.querySelector('.elements__card-img').alt = this._name
-        this._view.querySelector('.elements__card-text').textContent = this._name
-        container.prepend(this._view)
+        this._viewImg.src = this._link
+        this._viewImg.alt = this._name
+        this._viewText.textContent = this._name
+        return this._view
     }
 
     _setEventListeners() {
@@ -51,15 +53,17 @@ export class Card {
 
     _deleteCard() {
         this._view
-            .closest('.elements__card')
             .remove()
+        this._view = null
+        this._viewImg
+            .remove()
+        this._viewImg = null
+        this._viewText
+            .remove()
+        this._viewText = null
     }
 
     _openPhotoCard() {
-        const popupCaption = document.querySelector('.popup__text');
-        const popupImage = document.querySelector('.popup__img');
-        const modalFigurePopup = document.querySelector('.popup_type_image');
-
         popupImage.src = this._link
         popupCaption.textContent = this._name
         openPopup(modalFigurePopup)

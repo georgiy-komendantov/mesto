@@ -33,3 +33,7 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+
+const popupCaption = document.querySelector('.popup__text');
+const popupImage = document.querySelector('.popup__img');
+const modalFigurePopup = document.querySelector('.popup_type_image');

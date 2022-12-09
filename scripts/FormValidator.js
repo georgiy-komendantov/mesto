@@ -11,12 +11,12 @@ export class FormValidator{
         this._buttonElement = this._formElement.querySelector(this._submitButtonSelector)
     }
 
-    _setButtonActive(buttonActive){
-        buttonActive.setAttribute('disabled', true)
+    _setButtonActive(){
+        this._buttonElement.setAttribute('disabled', true)
     }
 
-    _setButtonDisable(buttonActive) {
-        buttonActive.removeAttribute('disabled');
+    _setButtonDisable() {
+        this._buttonElement.removeAttribute('disabled');
     }
 
     _hasInvalidInput(inputList) {
@@ -39,9 +39,9 @@ export class FormValidator{
 
     _toggleButtonState(){
         if (this._hasInvalidInput(this._inputList)) {
-            this._setButtonActive(this._buttonElement);
+            this._setButtonActive();
         } else {
-            this._setButtonDisable(this._buttonElement);
+            this._setButtonDisable();
         }
     }
 
