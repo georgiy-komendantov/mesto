@@ -55,12 +55,6 @@ export class Card {
         this._view
             .remove()
         this._view = null
-        this._viewImg
-            .remove()
-        this._viewImg = null
-        this._viewText
-            .remove()
-        this._viewText = null
     }
 
     _openPhotoCard() {
