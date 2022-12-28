@@ -34,6 +34,19 @@ const initialCards = [
     }
 ];
 
-const popupCaption = document.querySelector('.popup__text');
-const popupImage = document.querySelector('.popup__img');
-const modalFigurePopup = document.querySelector('.popup_type_image');
+const profileEditButton = document.querySelector('.profile__edit-button');
+const profileChangeButton = document.querySelector('.profile__button');
+
+const popupProfileEditWrapper = document.querySelector('.popup_type_profile');
+const popupCardAddWrapper = document.querySelector('.popup_type_new-photo');
+const popupInputName = document.querySelector('.popup__input_type_name');
+const popupInputAbout = document.querySelector('.popup__input_type_about');
+
+const popupAddInputName = document.querySelector('.popup__input_type_topic');
+const popupAddInputLink = document.querySelector('.popup__input_type_link');
+
+export {
+    selectors, initialCards, profileEditButton, profileChangeButton,
+    popupProfileEditWrapper, popupCardAddWrapper, popupInputName,
+    popupInputAbout, popupAddInputName, popupAddInputLink,
+};
