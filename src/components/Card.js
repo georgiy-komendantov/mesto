@@ -20,21 +20,23 @@ export default class Card {
     }
 
     _addLikeCard = (e) => {
+        // Я не делаю запрос на сервер, функция _me() в данном случае возвращает уже сохраненные данные в классе UserInfo, но получаю их через then, т.к. при обновлении этих данных и при первоначальном запросе, они могут вернуться асинхронно
         this._me().then(result => {
             if (this._likes.findIndex((el) => el._id === result._id) === -1){
                 this._handleCardPutLike(this._id).then(item => {
                     this._likes = item.likes;
                     this._likesCount.textContent = this._likes.length;
-                });
+                    e.target.classList.toggle('elements__card-like_active');
+                }).catch((e)=>console.log(e));
             } else {
                 this._handleCardRemoveLike(this._id).then(item => {
                     this._likes = item.likes;
                     this._likesCount.textContent = this._likes.length;
-                });
+                    e.target.classList.toggle('elements__card-like_active');
+                }).catch((e)=>console.log(e));
             }
 
-            e.target.classList.toggle('elements__card-like_active');
-        })
+        }).catch((e)=>console.log(e));
     }
 
     _deleteCard() {
@@ -52,13 +54,13 @@ export default class Card {
             if (this._owner._id !== result._id) {
                 this._deleteIcon.remove();
             }
-        });
+        }).catch((e)=>console.log(e));
 
         this._me().then(result => {
             if (this._likes.findIndex((el) => el._id === result._id) > -1) {
                 this._likeIcon.classList.toggle('elements__card-like_active');
             }
-        });
+        }).catch((e)=>console.log(e));
 
         this._addEventHandler();
         return this._elementCard;

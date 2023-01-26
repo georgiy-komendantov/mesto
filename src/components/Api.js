@@ -30,11 +30,7 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: this._headers,
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-        });
+        }).then(res => this._onResult(res));
     }
 
     getCards() {

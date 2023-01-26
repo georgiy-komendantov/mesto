@@ -23,7 +23,7 @@ const popupImageZoom = new PopupWithImage('.popup_type_image');
 popupImageZoom.setEventListeners();
 
 const popupRemove = new PopupWithRemove('.popup_type_alert', {
-    callbackSubmitForm: (_id) => api.deleteCard(_id)
+    callbackSubmitForm: (_id) => api.deleteCard(_id).catch((e) => console.log(e))
 });
 popupRemove.setEventListeners();
 
@@ -31,15 +31,27 @@ const userInfo = new UserInfo({
     userName: '.profile__text',
     userDescription: '.profile__about',
     userAvatar: '.profile__avatar-img',
-    getUserInfo: () => api.getUserInfo(),
+    getUserInfo: () => api.getUserInfo().catch((e) => console.log(e)),
+
 });
 
-
 const popupAvatar = new PopupWithAvatar('.popup_type_new-ava', {
-    callbackSubmitForm: (_id) => api.patchUserAvatar(_id, popupAddInputAvatar.value),
+    selectors: selectors,
+    callbackSubmitForm: (_id) => {
+        api.patchUserAvatar(_id, popupAddInputAvatar.value)
+            .then((res) => {
+                if (res) {
+                    userInfo.setAvatar({avatar: res.avatar})
+                    popupAvatar.close()
+                }
+            })
+            .catch((e) => console.log(e))
+            .finally(() => {
+                popupAvatar.resetButtonTextBeforeLoad()
+            })
+    },
     inputAvatar: popupAddInputAvatar,
-    getUserInfo: () => api.getUserInfo(),
-    setAvatar: (avatar) => userInfo.setAvatar({avatar: avatar}),
+    getUserInfo: () => api.getUserInfo().catch((e) => console.log(e)),
 });
 popupAvatar.setEventListeners();
 
@@ -47,16 +59,21 @@ popupAvatar.setEventListeners();
 const popupEditeProfile = new PopupWithForm('.popup_type_profile', {
     callbackSubmitForm: (profileData) => {
         api.patchUserInfo(profileData.name, profileData.about).then(result => {
-            userInfo.setInfo({
-                userName: result.name,
-                description: result.about
+            if (result) {
+                userInfo.getUpdate(result)
+                userInfo.setInfo({
+                    userName: result.name,
+                    description: result.about
+                })
+                popupEditeProfile.close();
+            }
+        }).catch((e) => console.log(e))
+            .finally(() => {
+                popupEditeProfile.resetButtonTextBeforeLoad();
             });
 
-            popupEditeProfile.resetButtonTextBeforeLoad();
-        });
-
-        return popupEditeProfile.close();
-    }
+    },
+    selectors: selectors,
 });
 
 popupEditeProfile.setEventListeners();
@@ -74,15 +91,15 @@ const renderCard = function (cardData) {
         cardSelector: '#elements__container-add',
         handleCardClick: handleCardClick,
         handleCardRemove: handleCardRemove,
-        handleCardPutLike: (_id) => api.putLikeOnCard(_id),
-        handleCardRemoveLike: (_id) => api.deleteLikeOnCard(_id),
-        userData: () => userInfo.getInfo()
+        handleCardPutLike: (_id) => api.putLikeOnCard(_id).catch((e) => console.log(e)),
+        handleCardRemoveLike: (_id) => api.deleteLikeOnCard(_id).catch((e) => console.log(e)),
+        userData: () => userInfo.getInfo().catch((e) => console.log(e))
     });
     return renderCardItem.makeCard();
 };
 
 const renderInitialCards = new Section({
-    items: () => api.getCards(),
+    items: () => api.getCards().catch((e) => console.log(e)),
     renderer: (cardData) => {
         const card = renderCard(cardData);
         renderInitialCards.addItem(card);
@@ -93,18 +110,23 @@ renderInitialCards.rendererItems();
 const popupAddCard = new PopupWithForm('.popup_type_new-photo', {
     callbackSubmitForm: () => {
         api.postNewCard(popupAddInputName.value, popupAddInputLink.value).then((result) => {
-            renderInitialCards.addItem(renderCard({
-                _id: result._id,
-                name: result.name,
-                link: result.link,
-                likes: result.likes,
-                owner: result.owner
-            }));
-
-            popupAddCard.resetButtonTextBeforeLoad();
-            popupAddCard.close();
+            if (result) {
+                renderInitialCards.addItem(renderCard({
+                    _id: result._id,
+                    name: result.name,
+                    link: result.link,
+                    likes: result.likes,
+                    owner: result.owner
+                }));
+                popupAddCard.close();
+            }
         })
-    }
+            .catch((e) => console.log(e))
+            .finally(() => {
+                popupAddCard.resetButtonTextBeforeLoad();
+            });
+    },
+    selectors: selectors,
 });
 popupAddCard.setEventListeners();
 
@@ -115,12 +137,10 @@ editProfileValidate.enableValidation();
 
 profileEditButton.addEventListener('click', function () {
     popupEditeProfile.open();
-    userInfo.getUpdate().then(() => {
-        userInfo.getInfo().then((result) => {
-            popupInputName.setAttribute('value', result.userName);
-            popupInputAbout.setAttribute('value', result.description);
-        })
-    })
+    userInfo.getInfo().then((result) => {
+        popupInputName.setAttribute('value', result.userName);
+        popupInputAbout.setAttribute('value', result.description);
+    }).catch((e) => console.log(e));
 });
 
 profileChangeButton.addEventListener('click', function () {

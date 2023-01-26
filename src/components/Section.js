@@ -10,7 +10,7 @@ export default class Section {
            result.reverse().forEach(item => {
                this._renderer(item);
            });
-       })
+       }).catch((e)=>console.log(e));
     }
 
     addItem(cardElement) {
