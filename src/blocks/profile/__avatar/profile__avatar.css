@@ -1,0 +1,22 @@
+.profile__avatar {
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    margin: 0 30px 0 0;
+}
+
+.profile__avatar:hover .profile__avatar-block {
+    background-image: url('../../../images/Vector.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.profile__avatar:hover .profile__avatar-img {
+    opacity: 0.1;
+}
+
+@media screen and (max-width: 1023px){
+    .profile__avatar {
+        margin: 0;
+    }
+}

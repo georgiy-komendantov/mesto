@@ -6,9 +6,11 @@ export default class Section {
     }
 
     rendererItems() {
-        this._renderItems.forEach(item => {
-            this._renderer(item);
-        });
+       this._renderItems().then((result) => {
+           result.reverse().forEach(item => {
+               this._renderer(item);
+           });
+       })
     }
 
     addItem(cardElement) {

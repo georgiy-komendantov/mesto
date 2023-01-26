@@ -1,3 +1,5 @@
+import {selectors} from "./utils/consts";
+
 export default class Popup {
     constructor(popupSelector) {
         this._popupItem = document.querySelector(popupSelector);

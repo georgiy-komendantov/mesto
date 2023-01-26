@@ -1,12 +1,14 @@
 import Popup from './Popup.js';
 import {selectors} from "./utils/consts";
 
-export default class PopupWithForm extends Popup {
-    constructor(popupSelector, { callbackSubmitForm }) {
+export default class PopupWithAvatar extends Popup {
+    constructor(popupSelector, { callbackSubmitForm, inputAvatar, getUserInfo, setAvatar }) {
         super(popupSelector);
-        this._callbackSubmitForm = callbackSubmitForm;
         this._popupFormItem = this._popupItem.querySelector('.popup__form');
-        this._inputList = Array.from(this._popupFormItem.querySelectorAll('.popup__input'));
+        this._callbackSubmitForm = callbackSubmitForm;
+        this._inputAvatar = inputAvatar;
+        this._getUserInfo = getUserInfo;
+        this._setAvatar = setAvatar;
         this._buttonSubmit = this._popupFormItem.querySelector(selectors.submitButtonSelector);
         this._textButton = this._buttonSubmit.textContent;
     }
@@ -20,26 +22,25 @@ export default class PopupWithForm extends Popup {
         this._buttonSubmit.textContent = this._textButton;
     }
 
+    open(_id, cardRemove) {
+        super.open()
+        this._id = _id;
+
+        this._getUserInfo().then((result)=>{
+           this._inputAvatar.value = result.avatar;
+        })
+    }
+
     setEventListeners() {
         super.setEventListeners();
-
         this._popupFormItem.addEventListener('submit', (evt) => {
-            this.changeButtonTextForLoad();
             evt.preventDefault();
-            this._callbackSubmitForm(this.getInputValues());
+            this.changeButtonTextForLoad();
+            this._callbackSubmitForm(this._id).then((res) => {
+                this._setAvatar(res.avatar);
+                this.resetButtonTextBeforeLoad();
+            })
+            super.close();
         });
-    }
-
-    getInputValues() {
-        this._formValues = {};
-        this._inputList.forEach(inputItem => {
-            this._formValues[inputItem.name] = inputItem.value;
-        });
-        return this._formValues;
-    }
-
-    close() {
-        super.close();
-        this._popupFormItem.reset();
     }
 }
