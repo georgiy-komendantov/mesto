@@ -41,7 +41,7 @@ const popupAvatar = new PopupWithAvatar('.popup_type_new-ava', {
         api.patchUserAvatar(_id, popupAddInputAvatar.value)
             .then((res) => {
                 if (res) {
-                    userInfo.setAvatar({avatar: res.avatar})
+                    userInfo.getUpdate( res)
                     popupAvatar.close()
                 }
             })
@@ -61,10 +61,6 @@ const popupEditeProfile = new PopupWithForm('.popup_type_profile', {
         api.patchUserInfo(profileData.name, profileData.about).then(result => {
             if (result) {
                 userInfo.getUpdate(result)
-                userInfo.setInfo({
-                    userName: result.name,
-                    description: result.about
-                })
                 popupEditeProfile.close();
             }
         }).catch((e) => console.log(e))
