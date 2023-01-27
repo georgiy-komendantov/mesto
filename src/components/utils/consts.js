@@ -16,8 +16,6 @@ const popupCardAddWrapper = document.querySelector('.popup_type_new-photo');
 const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputAbout = document.querySelector('.popup__input_type_about');
 
-const popupAddInputName = document.querySelector('.popup__input_type_topic');
-const popupAddInputLink = document.querySelector('.popup__input_type_link');
 const popupAddInputAvatar = document.querySelector('.popup__input_type_avatar');
 
 
@@ -25,5 +23,5 @@ const popupAddInputAvatar = document.querySelector('.popup__input_type_avatar');
 export {
     selectors, profileEditButton, profileChangeButton,
     popupProfileEditWrapper, popupCardAddWrapper, popupInputName,
-    popupInputAbout, popupAddInputName, popupAddInputLink, profileAvatarButton, popupAddInputAvatar
+    popupInputAbout, profileAvatarButton, popupAddInputAvatar
 };

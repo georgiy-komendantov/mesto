@@ -13,7 +13,6 @@ import {
     selectors,
     profileEditButton, profileChangeButton,
     popupCardAddWrapper,
-    popupAddInputName, popupAddInputLink,
     popupInputName, popupInputAbout, popupProfileEditWrapper,
     profileAvatarButton, popupAddInputAvatar
 } from '../components/utils/consts';
@@ -31,17 +30,27 @@ const userInfo = new UserInfo({
     userName: '.profile__text',
     userDescription: '.profile__about',
     userAvatar: '.profile__avatar-img',
-    getUserInfo: () => api.getUserInfo().catch((e) => console.log(e)),
-
+    getUserInfo: () => Promise.all([api.getUserInfo(), api.getCards()]).then(([userData, cards]) => {
+        renderInitialCards.updateItems(cards)
+        return userData;
+    }).catch((e) => console.log(e)),
+    updateCards: () => renderInitialCards.rendererItems()
 });
+
+const renderInitialCards = new Section({
+    renderer: (cardData) => {
+        const card = renderCard(cardData);
+        renderInitialCards.addItem(card);
+    }
+}, '.elements');
 
 const popupAvatar = new PopupWithAvatar('.popup_type_new-ava', {
     selectors: selectors,
-    callbackSubmitForm: (_id) => {
-        api.patchUserAvatar(_id, popupAddInputAvatar.value)
+    callbackSubmitForm: (getInputValues) => {
+        api.patchUserAvatar(getInputValues.link)
             .then((res) => {
                 if (res) {
-                    userInfo.getUpdate( res)
+                    userInfo.getUpdate(res)
                     popupAvatar.close()
                 }
             })
@@ -55,7 +64,6 @@ const popupAvatar = new PopupWithAvatar('.popup_type_new-ava', {
 });
 popupAvatar.setEventListeners();
 
-
 const popupEditeProfile = new PopupWithForm('.popup_type_profile', {
     callbackSubmitForm: (profileData) => {
         api.patchUserInfo(profileData.name, profileData.about).then(result => {
@@ -67,7 +75,6 @@ const popupEditeProfile = new PopupWithForm('.popup_type_profile', {
             .finally(() => {
                 popupEditeProfile.resetButtonTextBeforeLoad();
             });
-
     },
     selectors: selectors,
 });
@@ -94,18 +101,9 @@ const renderCard = function (cardData) {
     return renderCardItem.makeCard();
 };
 
-const renderInitialCards = new Section({
-    items: () => api.getCards().catch((e) => console.log(e)),
-    renderer: (cardData) => {
-        const card = renderCard(cardData);
-        renderInitialCards.addItem(card);
-    }
-}, '.elements');
-renderInitialCards.rendererItems();
-
 const popupAddCard = new PopupWithForm('.popup_type_new-photo', {
-    callbackSubmitForm: () => {
-        api.postNewCard(popupAddInputName.value, popupAddInputLink.value).then((result) => {
+    callbackSubmitForm: (getInputValues) => {
+        api.postNewCard(getInputValues.topic, getInputValues.link).then((result) => {
             if (result) {
                 renderInitialCards.addItem(renderCard({
                     _id: result._id,

@@ -1,11 +1,12 @@
 export default class UserInfo {
-    constructor({ userName, userDescription, userAvatar, getUserInfo}) {
+    constructor({ userName, userDescription, userAvatar, getUserInfo, updateCards}) {
         this._userName = document.querySelector(userName);
         this._userDescription = document.querySelector(userDescription);
         this._userAvatar = document.querySelector(userAvatar);
 
         getUserInfo().then((result) => {
             this.getUpdate(result)
+            updateCards();
         });
     }
 
